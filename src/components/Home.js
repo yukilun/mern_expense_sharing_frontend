@@ -125,15 +125,15 @@ function Home() {
 
                                     console.log(netAmount);
 
-                                    let paidArray = new Array(netAmount.length);
+                                    var paidArray = new Array(netAmount.length);
 
-                                    for (let i = 0; i < paidArray.length; i++) {
+                                    for (var i = 0; i < paidArray.length; i++) {
                                         paidArray[i] = new Array(netAmount.length);
                                     }
 
-                                    for(let i = 0; i < netAmount.length; i++){
+                                    for(var i = 0; i < netAmount.length; i++){
 
-                                        for(let j = 0; j < netAmount.length; j++){
+                                        for(var j = 0; j < netAmount.length; j++){
                                             if(netAmount[i] >= 0 || netAmount[j] <= 0 || i===j) {
                                                 paidArray[i][j] = 0;
                                             }
@@ -192,40 +192,46 @@ function Home() {
             <div>
                 <h2>Expense List</h2>
                     {
-                            expenses.map((expense)=> {
-
-                                const cat = categories.find(c => c.name === expense.category);
-                                let iconStyles = {};
-                                let borderStyle = {};
-                                if(cat){
-                                    iconStyles = {
-                                        color: cat.color
-                                    };
-                                    borderStyle = {
-                                        border: `4px solid ${cat.color}50`
-                                    };
-                                    return (
-                                        <div key={expense._id} className={"expense_item " + (expense.isShared && "isShared")} style={borderStyle}>
-                                            <div className="expense_left">
-                                                <h3><FontAwesomeIcon style={iconStyles} icon={getIcon(cat.icon_class)} size="2x"/></h3>
-                                                <h4>{cat.name}</h4>
+                            expenses.length > 0 ? (
+                                expenses.map((expense)=> {
+                                    const cat = categories.find(c => c.name === expense.category);
+                                    var iconStyles = {};
+                                    var borderStyle = {};
+                                    if(cat){
+                                        iconStyles = {
+                                            color: cat.color
+                                        };
+                                        borderStyle = {
+                                            border: `4px solid ${cat.color}50`
+                                        };
+                                        return (
+                                            <div key={expense._id} className={"expense_item " + (expense.isShared && "isShared")} style={borderStyle}>
+                                                <div className="expense_left">
+                                                    <h3><FontAwesomeIcon style={iconStyles} icon={getIcon(cat.icon_class)} size="2x"/></h3>
+                                                    <h4>{cat.name}</h4>
+                                                </div>
+                                                <div className="expense_middle">
+                                                    <h4>{new Date(expense.date).toLocaleDateString()}</h4>
+                                                    {expense.description && <h4>{expense.description}</h4>}
+                                                    <h5>Paid By {expense.username}</h5>
+                                                </div>
+                                                <div className="expense_right">
+                                                    <h1>${expense.amount.toFixed(2)}</h1>
+                                                </div>
+                                                    <FontAwesomeIcon icon={faTrash} size="1x" onClick={()=> deleteExpense(expense._id)}/>
                                             </div>
-                                            <div className="expense_middle">
-                                                <h4>{new Date(expense.date).toLocaleDateString()}</h4>
-                                                {expense.description && <h4>{expense.description}</h4>}
-                                                <h5>Paid By {expense.username}</h5>
-                                            </div>
-                                            <div className="expense_right">
-                                                <h1>${expense.amount.toFixed(2)}</h1>
-                                            </div>
-                                                <FontAwesomeIcon icon={faTrash} size="1x" onClick={()=> deleteExpense(expense._id)}/>
-                                        </div>
-                                    );
-                                }
-                                else{
-                                    return null;
-                                }
-                            })
+                                        );
+                                    }
+                                    else{
+                                        return null;
+                                    }
+                                })
+                            ):
+                            (
+                                <div className="expense_item">
+                                    No Expense Found!
+                                </div>
+                            )
                     }
             </div>
         </div>

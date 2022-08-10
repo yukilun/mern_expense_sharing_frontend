@@ -2,41 +2,45 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faBurger, faHouse, faFaucetDrip,  faIcons, faBus, faFileShield, faQuestion, faTrash} from "@fortawesome/free-solid-svg-icons";
+import { useCallback } from 'react';
 
-function Home() {
+function Home({pw}) {
 
     const [categories, setCategories] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [users, setUsers] = useState([]);
     const [summary, setSummary] = useState([]);
 
+    const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
+
+    const fetchExpense = useCallback(() => {
+        axios.get(url + '/expense')
+        .then((res)=> setExpenses(res.data))
+        .catch((err)=> console.error(err));
+    }, [url]);
+
+    const fetchSummary = useCallback(() => {
+        axios.get(url + '/summary')
+        .then((res)=> setSummary(res.data))
+        .catch((err)=> console.error(err));
+    }, [url]);
+
     useEffect(()=>{
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/category')
+        axios.get(url + '/category')
         .then((res)=> setCategories(res.data))
         .catch((err)=> console.error(err));
 
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/user')
+        axios.get(url + '/user')
         .then((res)=> setUsers(res.data))
         .catch((err)=> console.error(err));
 
         fetchExpense();
         fetchSummary();
-    }, []);
+    }, [url, fetchExpense, fetchSummary]);
 
-    const fetchExpense = () => {
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/expense')
-        .then((res)=> setExpenses(res.data))
-        .catch((err)=> console.error(err));
-    };
-
-    const fetchSummary = () => {
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/summary')
-        .then((res)=> setSummary(res.data))
-        .catch((err)=> console.error(err));
-    }
 
     const deleteExpense = (id) => {
-        axios.delete('https://mern-expense-sharing-backend.herokuapp.com/deleteExpense/' + id)
+        axios.delete(url + '/deleteExpense/' + id)
         .then(()=> {
             fetchExpense();
             fetchSummary();
@@ -121,19 +125,19 @@ function Home() {
 
                                     console.log(results);
 
-                                    var netAmount = results.map((row)=> {return row.total_paid - perPerson});
+                                    let netAmount = results.map((row)=> {return row.total_paid - perPerson});
 
                                     console.log(netAmount);
 
-                                    var paidArray = new Array(netAmount.length);
+                                    let paidArray = new Array(netAmount.length);
 
-                                    for (var i = 0; i < paidArray.length; i++) {
+                                    for (let i = 0; i < paidArray.length; i++) {
                                         paidArray[i] = new Array(netAmount.length);
                                     }
 
-                                    for(var i = 0; i < netAmount.length; i++){
+                                    for(let i = 0; i < netAmount.length; i++){
 
-                                        for(var j = 0; j < netAmount.length; j++){
+                                        for(let j = 0; j < netAmount.length; j++){
                                             if(netAmount[i] >= 0 || netAmount[j] <= 0 || i===j) {
                                                 paidArray[i][j] = 0;
                                             }

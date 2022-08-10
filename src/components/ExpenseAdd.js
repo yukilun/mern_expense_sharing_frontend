@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faBurger, faHouse, faFaucetDrip,  faIcons, faBus, faFileShield, faQuestion} from "@fortawesome/free-solid-svg-icons";
 
-function ExpenseAdd() {
+function ExpenseAdd({pw}) {
 
     const [expense, setExpense] = useState({
         category: '',
@@ -15,15 +15,17 @@ function ExpenseAdd() {
     const [categories, setCategories] = useState([]);
     const [users, setUsers] = useState([]);
 
+    const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
+
     useEffect(()=>{
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/category')
+        axios.get(url + 'category')
         .then((res)=> setCategories(res.data))
         .catch((err)=> console.error(err));
 
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/user')
+        axios.get(url + '/user')
         .then((res)=> setUsers(res.data))
         .catch((err)=> console.error(err));
-    }, []);
+    }, [url]);
 
     const getIcon = (icon_class) => {
         switch(icon_class){

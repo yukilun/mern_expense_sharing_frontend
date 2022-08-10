@@ -53,7 +53,7 @@ function ExpenseAdd() {
 
         axios.post('https://mern-expense-sharing-backend.herokuapp.com/addExpense', expense)
         .then(() => {
-            window.location = '/';
+            window.location = '/mern_expense_sharing_frontend';
         })
         .catch((error) => {
             console.error(error);

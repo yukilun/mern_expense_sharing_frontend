@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-h2{
+h2:not(.expense_amount){
   font-family: 'Pacifico', cursive;
   font-size: 2em;
   text-align: center;
@@ -213,4 +213,10 @@ table th{
 
 .fa-trash:hover{
   transform: scale(1.2);
+}
+
+@media only screen and (max-width: 600px) {
+  .logo_text{
+    font-size: 2em;
+  }
 }

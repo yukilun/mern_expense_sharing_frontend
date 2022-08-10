@@ -208,7 +208,7 @@ function Home() {
                                             <div key={expense._id} className={"expense_item " + (expense.isShared && "isShared")} style={borderStyle}>
                                                 <div className="expense_left">
                                                     <h3><FontAwesomeIcon style={iconStyles} icon={getIcon(cat.icon_class)} size="2x"/></h3>
-                                                    <h4>{cat.name}</h4>
+                                                    <h5>{cat.name}</h5>
                                                 </div>
                                                 <div className="expense_middle">
                                                     <h4>{new Date(expense.date).toLocaleDateString()}</h4>
@@ -216,7 +216,7 @@ function Home() {
                                                     <h5>Paid By {expense.username}</h5>
                                                 </div>
                                                 <div className="expense_right">
-                                                    <h1>${expense.amount.toFixed(2)}</h1>
+                                                    <h2 className='expense_amount'>${expense.amount.toFixed(2)}</h2>
                                                 </div>
                                                     <FontAwesomeIcon icon={faTrash} size="1x" onClick={()=> deleteExpense(expense._id)}/>
                                             </div>

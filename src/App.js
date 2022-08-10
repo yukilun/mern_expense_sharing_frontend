@@ -12,9 +12,9 @@ function App() {
         <Header/>
         <Navbar/>
         <Routes>
-          <Route path="/mern_expense_sharing_frontend/addUser" element={<UserAdd/>}/>
-          <Route path="/mern_expense_sharing_frontend/addExpense" element={<ExpenseAdd/>}/>
-          <Route absolute path="/mern_expense_sharing_frontend" element={<Home/>}/>
+          <Route path="/addUser" element={<UserAdd/>}/>
+          <Route path="/addExpense" element={<ExpenseAdd/>}/>
+          <Route absolute path="/" element={<Home/>}/>
         </Routes>
     </div>
   );

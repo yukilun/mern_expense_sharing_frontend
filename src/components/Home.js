@@ -121,7 +121,7 @@ function Home() {
 
                                     console.log(results);
 
-                                    let netAmount = results.map((row)=> {return row.total_paid - perPerson});
+                                    var netAmount = results.map((row)=> {return row.total_paid - perPerson});
 
                                     console.log(netAmount);
 

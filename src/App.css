@@ -124,7 +124,7 @@ h2:not(.expense_amount){
   font-size: 1.15rem;
 }
 
-.add_user_form input:focus, .add_expense_form input:focus, .add_expense_form select:focus{
+.add_user_form input:focus, .add_expense_form input:focus, .add_expense_form select:focus, .login input:focus{
   margin: 10px;
   padding: 5px 10px;
   border: 0;
@@ -169,7 +169,7 @@ input[type="radio"]:checked + .category_option{
   background-color: rgba(255,255,255,0.4);
 }
 
-.add_user_form button, .add_expense_form button, .shareBtn, .login-btn{
+.add_user_form button, .add_expense_form button, .shareBtn, .login-btn, .modal-btn{
   width: 200px;
   margin: 5px auto;
   padding: 10px;
@@ -215,6 +215,50 @@ table th{
   /* font-size: 1.15em; */
   color: rgb(243, 145, 170);
 }
+
+.modal{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+}
+
+.modal-container{
+  background-color: rgba(255,255,255,0.7);
+  margin: auto;
+  padding: 30px 50px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  color: rgba(0,0,0,0.6);
+}
+
+.modal-container h3{
+  margin-bottom: 10px;
+}
+
+.modal-btn{
+  width: 120px;
+  margin: 5px 10px;
+}
+
+.confirm{
+  background-color: rgba(224, 145, 145, 0.6);
+}
+
+.cancel{
+  background-color: rgba(141, 141, 141, 0.6);
+}
+
+.modal-btn:hover{
+  transform: scale(1.05);
+}
+
 
 .fa-trash{
   cursor: pointer;

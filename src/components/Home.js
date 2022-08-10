@@ -10,6 +10,7 @@ function Home({pw}) {
     const [expenses, setExpenses] = useState([]);
     const [users, setUsers] = useState([]);
     const [summary, setSummary] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
 
@@ -49,7 +50,7 @@ function Home({pw}) {
     }
 
     const shared = () => {
-        axios.post('https://mern-expense-sharing-backend.herokuapp.com/shared')
+        axios.post(url + '/shared')
         .then(()=> {
             fetchExpense();
             fetchSummary();
@@ -170,7 +171,7 @@ function Home({pw}) {
                                                 paidArray.map((row, i)=> row.map((cell, j)=>{
                                                     if(cell > 0){
                                                         return (                                            
-                                                            <tr className='pay'>
+                                                            <tr className='pay' key={`${i}_${j}`}>
                                                                 <td style={{textAlign: 'right'}}>{results[i].name} to {results[j].name}</td>
                                                                 <td>${cell.toFixed(2)}</td>
                                                             </tr>
@@ -182,7 +183,7 @@ function Home({pw}) {
                                                 }))
                                             }
                                             <tr className='shareExpense'>
-                                                <td colSpan={2}><button className='shareBtn' onClick={shared}>Share Expenses!</button></td>
+                                                <td colSpan={2}><button className='shareBtn' onClick={()=>setShowModal(true)}>Share Expenses!</button></td>
                                             </tr>
                                         </>
                                     );
@@ -191,6 +192,21 @@ function Home({pw}) {
 
                         </tbody>
                     </table>
+                    {
+                        showModal && (
+                            <div className='modal'>
+                                <div className='modal-container'>
+                                    <h3>Are you sure all the expenses have been shared?</h3>
+                                    <button onClick={()=>{
+                                        shared();
+                                        setShowModal(false);
+                                    }} className="modal-btn confirm">Confirm</button>
+                                    <button onClick={()=>setShowModal(false)} className="modal-btn cancel">Cancel</button>
+                                </div>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
             <div>

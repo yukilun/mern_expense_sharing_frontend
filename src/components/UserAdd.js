@@ -2,26 +2,30 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useCallback } from 'react';
 
-function UserAdd() {
+function UserAdd({pw}) {
 
     const [inputUser, setInputUser] = useState({name: ''});
     const [users, setUsers] = useState([]);
 
+    const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
+
+
+    const fetchUser = useCallback(() => {
+        axios.get(url + '/user')
+        .then((res) => setUsers(res.data));
+    },[url]);
+
     useEffect(()=>{
         fetchUser();
-    }, []);
+    }, [fetchUser]);
 
-
-    const fetchUser = () => {
-        axios.get('https://mern-expense-sharing-backend.herokuapp.com/user')
-        .then((res) => setUsers(res.data));
-    }
 
     const addUser = (e) => {
         e.preventDefault();
 
-        axios.post('https://mern-expense-sharing-backend.herokuapp.com/addUser', {
+        axios.post(url + '/addUser', {
             name: inputUser.name
         })
         .then(() => {
@@ -35,9 +39,9 @@ function UserAdd() {
 
     const deleteUser = (id) => {    
 
-        const url = 'https://mern-expense-sharing-backend.herokuapp.com/deleteUser/'+id;
+        const deleteUrl = url + '/deleteUser/'+ id;
 
-        axios.delete(url, {
+        axios.delete(deleteUrl, {
             id: id
         })
         .then(()=> {

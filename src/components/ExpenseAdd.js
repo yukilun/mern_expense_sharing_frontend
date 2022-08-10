@@ -2,14 +2,18 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faBurger, faHouse, faFaucetDrip,  faIcons, faBus, faFileShield, faQuestion} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 function ExpenseAdd({pw}) {
 
+    const navigate = useNavigate();
+
     const [expense, setExpense] = useState({
         category: '',
-        amount: 0,
+        amount: '',
         date: new Date().toISOString().split('T')[0],
         username: '',
+        description: '',
         isShared: false
     });
     const [categories, setCategories] = useState([]);
@@ -53,9 +57,9 @@ function ExpenseAdd({pw}) {
 
         console.log(expense);
 
-        axios.post('https://mern-expense-sharing-backend.herokuapp.com/addExpense', expense)
+        axios.post(url + '/addExpense', expense)
         .then(() => {
-            window.location = '/mern_expense_sharing_frontend';
+            navigate('/');
         })
         .catch((error) => {
             console.error(error);

@@ -167,7 +167,7 @@ function Home() {
                                                     if(cell > 0){
                                                         return (                                            
                                                             <tr className='pay'>
-                                                                <td>{results[i].name} to {results[j].name}</td>
+                                                                <td style={{textAlign: 'right'}}>{results[i].name} to {results[j].name}</td>
                                                                 <td>${cell.toFixed(2)}</td>
                                                             </tr>
                                                         )

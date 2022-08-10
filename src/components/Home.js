@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faBurger, faHouse, faFaucetDrip,  faIcons, faBus, faFileShield, faQuestion, faTrash} from "@fortawesome/free-solid-svg-icons";
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 function Home({pw}) {
 
@@ -13,6 +13,7 @@ function Home({pw}) {
     const [showModal, setShowModal] = useState(false);
 
     const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
+    const modal = useRef(null);
 
     const fetchExpense = useCallback(() => {
         axios.get(url + '/expense')
@@ -194,7 +195,7 @@ function Home({pw}) {
                     </table>
                     {
                         showModal && (
-                            <div className='modal'>
+                            <div className='modal' ref={modal} onClick={(e)=>{ modal.current === e.target && setShowModal(false)}}>
                                 <div className='modal-container'>
                                     <h3>Are you sure all the expenses have been shared?</h3>
                                     <button onClick={()=>{

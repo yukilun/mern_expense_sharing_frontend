@@ -18,7 +18,7 @@ function ExpenseAdd({pw}) {
     const url = "https://mern-expense-sharing-backend.herokuapp.com/" + pw;
 
     useEffect(()=>{
-        axios.get(url + 'category')
+        axios.get(url + '/category')
         .then((res)=> setCategories(res.data))
         .catch((err)=> console.error(err));
 

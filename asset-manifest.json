@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/mern_expense_sharing_frontend/static/css/main.f7b31649.css",
-    "main.js": "/mern_expense_sharing_frontend/static/js/main.33c6f3aa.js",
+    "main.js": "/mern_expense_sharing_frontend/static/js/main.45f687b1.js",
     "index.html": "/mern_expense_sharing_frontend/index.html",
     "main.f7b31649.css.map": "/mern_expense_sharing_frontend/static/css/main.f7b31649.css.map",
-    "main.33c6f3aa.js.map": "/mern_expense_sharing_frontend/static/js/main.33c6f3aa.js.map"
+    "main.45f687b1.js.map": "/mern_expense_sharing_frontend/static/js/main.45f687b1.js.map"
   },
   "entrypoints": [
     "static/css/main.f7b31649.css",
-    "static/js/main.33c6f3aa.js"
+    "static/js/main.45f687b1.js"
   ]
 }

@@ -7,6 +7,7 @@ import ExpenseAdd from './components/ExpenseAdd';
 import Home from './components/Home';
 import { useState } from 'react';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
 
@@ -14,9 +15,21 @@ function App() {
   const [pw, setPw] = useState('');
   const [msg, setMsg] = useState('Enter Password: ');
 
+  useEffect(()=>{
+    const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
+      if(storedIsLoggedIn){
+        setisLoggedIn(storedIsLoggedIn);
+        setPw(sessionStorage.getItem('pw'));
+      }
+  }, []);
+
   const checkPw = () => {
     axios.get('https://mern-expense-sharing-backend.herokuapp.com/'+ pw)
-    .then((res)=> setisLoggedIn(true))
+    .then((res)=> {
+      setisLoggedIn(true);
+      sessionStorage.setItem('isLoggedIn', isLoggedIn);
+      sessionStorage.setItem('pw', pw);
+    })
     .catch((err)=> setMsg('Incorrect Password! Re-enter Password: '));
   };
 
